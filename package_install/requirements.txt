@@ -1,6 +1,6 @@
 numpy
 opencv-python
-tensorflow-gpu==1.14.0
+tensorflow-gpu==1.15.2
 gym
 gym[box2d]
 pandas
