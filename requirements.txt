@@ -8,6 +8,7 @@ matplotlib
 pyyaml
 optuna
 mpi4py
+joblib
 ta
 statsmodels==0.10.0rc2
 empyrical
