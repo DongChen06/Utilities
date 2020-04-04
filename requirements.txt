@@ -1,0 +1,17 @@
+numpy
+opencv-python
+tensorflow-gpu==1.14.0
+gym
+pandas
+sklearn
+matplotlib
+pyyaml
+optuna
+mpi4py
+ta
+statsmodels==0.10.0rc2
+empyrical
+ccxt
+psycopg2
+configparser
+quantstats>=0.0.17
