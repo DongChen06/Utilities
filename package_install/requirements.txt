@@ -2,6 +2,7 @@ numpy
 opencv-python
 tensorflow-gpu==1.14.0
 gym
+gym[box2d]
 pandas
 sklearn
 matplotlib
