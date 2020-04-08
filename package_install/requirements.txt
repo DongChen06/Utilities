@@ -13,6 +13,7 @@ joblib
 ta
 statsmodels==0.10.0rc2
 empyrical
+easydict
 ccxt
 psycopg2
 configparser
