@@ -11,6 +11,7 @@ optuna
 mpi4py
 joblib
 ta
+Pillow
 statsmodels==0.10.0rc2
 empyrical
 easydict
