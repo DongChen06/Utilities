@@ -19,3 +19,4 @@ ccxt
 psycopg2
 configparser
 quantstats>=0.0.17
+dill
