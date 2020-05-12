@@ -12,6 +12,7 @@ mpi4py
 joblib
 ta
 Pillow
+scikit-learn
 statsmodels==0.10.0rc2
 empyrical
 easydict
