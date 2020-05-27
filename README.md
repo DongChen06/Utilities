@@ -1,10 +1,22 @@
 # Utilities
 This repository is used to store utility codes which may be useful in the near future.
 
-#### save a numpy array
+## Contents
+
+* [Numpy](#numpy)
+ * [Save and read numpy array](#save-and-read-numpy-array)
+ * [Save and read pkl](#save-and-read-pkl)
+* [FolderOperation](#folderoperation)
+ * [Move up several folders](#move-up-several-folders)
+* [Python](#python)
+ * [Calculating run time](#calculating-run-time)
 
 
-#### save to pkl
+# Numpy
+## Save and read numpy array
+
+
+## Save and read pkl
 ```
 data = (1, 2, 3, [[1,2,3],[4,5,6]], ['a','b','c'])
 with open('data.pickle', 'wb') as f:
@@ -16,7 +28,9 @@ with open('data.pickle', 'wb') as f:
      data = pickle.load(f)
  ```
 
-#### move up several folders
+# Folderoperation
+
+## Move up several folders
 ```
 from pathlib import Path
 
@@ -26,7 +40,9 @@ str(Path(full_path).parents[1])  # "path"
 str(Path(full_path).parents[2])  # "."
 ```
 
-#### Calculating run time
+# Python
+
+## Calculating run time
 [Reference](https://stackoverflow.com/questions/5622976/how-do-you-calculate-program-run-time-in-python)
 
 ```
