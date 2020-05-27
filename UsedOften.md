@@ -32,6 +32,6 @@ start=datetime.now()
 
 #Statements
 
-print datetime.now()-start
+print(datetime.now()-start)
 ```
 
