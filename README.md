@@ -10,7 +10,9 @@ This repository is used to store utility codes which may be useful in the near f
   * [Move up several folders](#move-up-several-folders)
 * [Python](#python)
   * [Calculating run time](#calculating-run-time)
-
+* [Tensorflow](#tensorflow)
+  * [Tensorboard](#tensorboard)
+  * [Tensorflow GPU Statement](-tensorflow-gPU-statement)
 
 # Numpy
 ## Save and read numpy array
@@ -52,3 +54,22 @@ start=datetime.now()
 #Statements
 
 print(datetime.now()-start)
+```
+
+
+# Tensorflow
+## Tensorboard
+- On linux: `tensorboard --logdir=logs`
+ 
+- On windows: `tensorboard --logdir=log/ --host localhost --port 8088`
+
+## Tensorflow GPU Statement
+```
+from __future__ import print_function, division
+import os
+
+os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
+os.environ["CUDA_VISIBLE_DEVICES"] = "0"
+```
+If we donot want to use GPU, we can set it as -1.
+
