@@ -6,7 +6,7 @@ This repository is used to store utility codes which may be useful in the near f
 * [Numpy](#numpy)
   * [Save and read numpy array](#save-and-read-numpy-array)
   * [Save and read pkl](#save-and-read-pkl)
-* [FolderOperation](#folderoperation)
+* [Folder Operation](#folder-operation)
   * [Move up several folders](#move-up-several-folders)
 * [Python](#python)
   * [Calculating run time](#calculating-run-time)
@@ -28,7 +28,7 @@ with open('data.pickle', 'wb') as f:
      data = pickle.load(f)
  ```
 
-# Folderoperation
+# Folder Operation
 
 ## Move up several folders
 ```
