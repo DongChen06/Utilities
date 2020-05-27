@@ -4,12 +4,12 @@ This repository is used to store utility codes which may be useful in the near f
 ## Contents
 
 * [Numpy](#numpy)
- * [Save and read numpy array](#save-and-read-numpy-array)
- * [Save and read pkl](#save-and-read-pkl)
+  * [Save and read numpy array](#save-and-read-numpy-array)
+  * [Save and read pkl](#save-and-read-pkl)
 * [FolderOperation](#folderoperation)
- * [Move up several folders](#move-up-several-folders)
+  * [Move up several folders](#move-up-several-folders)
 * [Python](#python)
- * [Calculating run time](#calculating-run-time)
+  * [Calculating run time](#calculating-run-time)
 
 
 # Numpy
