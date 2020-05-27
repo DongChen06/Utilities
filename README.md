@@ -6,13 +6,16 @@ This repository is used to store utility codes which may be useful in the near f
 * [Numpy](#numpy)
   * [Save and read numpy array](#save-and-read-numpy-array)
   * [Save and read pkl](#save-and-read-pkl)
-* [Folder Operation](#folder-operation)
-  * [Move up several folders](#move-up-several-folders)
+* [Ubuntu](#ubuntu)
+  * [Package Installation](#package-installation)
+  * [Folder Operation](#folder-operation)
+    * [Move up several folders](#move-up-several-folders)
 * [Python](#python)
   * [Calculating run time](#calculating-run-time)
-* [Tensorflow](#tensorflow)
-  * [Tensorboard](#tensorboard)
-  * [Tensorflow GPU Statement](-tensorflow-gPU-statement)
+* [Deep Learning Related](#deep-learning-related)
+  * [Tensorflow](#tensorflow)
+    * [Tensorboard](#tensorboard)
+    * [Tensorflow GPU Statement](-tensorflow-gPU-statement)
 
 # Numpy
 ## Save and read numpy array
@@ -30,9 +33,20 @@ with open('data.pickle', 'wb') as f:
      data = pickle.load(f)
  ```
 
-# Folder Operation
+# Ubuntu
+## Package Installation
+- to install the packages in the requirement.txt file: `pip install -r requirements.txt`.
 
-## Move up several folders
+- Install box2D
+```
+conda install swig
+pip install pocketsphinx
+pip install gym[box2d]
+```
+
+## Folder Operation
+
+### Move up several folders
 ```
 from pathlib import Path
 
@@ -57,13 +71,18 @@ print(datetime.now()-start)
 ```
 
 
-# Tensorflow
-## Tensorboard
+# Deep Learning Related
+
+## Anaconda
+- create a new environment In Anaconda: `conda create -n py3.5 python=3.5`
+
+## Tensorflow
+### Tensorboard
 - On linux: `tensorboard --logdir=logs`
  
 - On windows: `tensorboard --logdir=log/ --host localhost --port 8088`
 
-## Tensorflow GPU Statement
+### Tensorflow GPU Statement
 ```
 from __future__ import print_function, division
 import os
