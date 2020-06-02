@@ -1,3 +1,4 @@
+# https://stackoverflow.com/questions/15454285/numpy-array-of-class-instances/15455053
 import numpy
 
 class Atom(object):
