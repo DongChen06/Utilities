@@ -23,12 +23,13 @@ This repository is used to store utility codes which may be useful in the near f
 
 
 ## Save and read pkl
+- Saving datat
 ```
 data = (1, 2, 3, [[1,2,3],[4,5,6]], ['a','b','c'])
 with open('data.pickle', 'wb') as f:
     pickle.dump(data, f)
  ```
- read data
+ - Reading data
  ```
  with open('data.pickle', 'rb') as f:
      data = pickle.load(f)
