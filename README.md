@@ -13,6 +13,7 @@ This repository is used to store utility codes which may be useful in the near f
 * [Python](#python)
   * [Calculating run time](#calculating-run-time)
 * [Deep Learning Related](#deep-learning-related)
+  * [Anaconda](#anaconda)
   * [Tensorflow](#tensorflow)
     * [Tensorboard](#tensorboard)
     * [Tensorflow GPU Statement](-tensorflow-gPU-statement)
@@ -75,6 +76,7 @@ print(datetime.now()-start)
 
 ## Anaconda
 - create a new environment In Anaconda: `conda create -n py3.5 python=3.5`
+- check the environment info: `conda info --envs`
 
 ## Tensorflow
 ### Tensorboard
@@ -91,4 +93,5 @@ os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
 os.environ["CUDA_VISIBLE_DEVICES"] = "0"
 ```
 If we donot want to use GPU, we can set it as -1.
+
 
