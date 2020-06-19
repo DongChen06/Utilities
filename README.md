@@ -16,7 +16,7 @@ This repository is used to store utility codes which may be useful in the near f
   * [Anaconda](#anaconda)
   * [Tensorflow](#tensorflow)
     * [Tensorboard](#tensorboard)
-    * [Tensorflow GPU Statement](-tensorflow-gpu-statement)
+    * [Tensorflow GPU Statement](#tensorflow-gpu-statement)
 
 # Numpy
 ## Save and read numpy array
