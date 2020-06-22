@@ -10,6 +10,8 @@ This repository is used to store utility codes which may be useful in the near f
   * [Package Installation](#package-installation)
   * [Folder Operation](#folder-operation)
     * [Move up several folders](#move-up-several-folders)
+  * [Basic Operation](#basic-operation)
+    * [Screenshots](#screenshots)
 * [Python](#python)
   * [Calculating run time](#calculating-run-time)
 * [Deep Learning Related](#deep-learning-related)
@@ -57,6 +59,18 @@ str(Path(full_path).parents[0])  # "path/to"
 str(Path(full_path).parents[1])  # "path"
 str(Path(full_path).parents[2])  # "."
 ```
+
+## Basic Operation
+
+### Screenshots
+`Alt+Prt` Scrn to take a screenshot of a window.
+
+`Shift+Prt` Scrn to take a screenshot of an area you select.
+
+`Shift+Ctrl+Prt` Scrn to take a screenshot of an area you select.
+
+In windows: `shift+Win+S` Scrn to take a screenshot of an area you select.
+
 
 # Python
 
