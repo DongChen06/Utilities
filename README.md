@@ -14,6 +14,7 @@ This repository is used to store utility codes which may be useful in the near f
     * [Screenshots](#screenshots)
 * [Python](#python)
   * [Calculating run time](#calculating-run-time)
+  * [Obtain file extension](#obtain-file-extension)
 * [Deep Learning Related](#deep-learning-related)
   * [Anaconda](#anaconda)
   * [Tensorflow](#tensorflow)
@@ -85,6 +86,29 @@ start=datetime.now()
 
 print(datetime.now()-start)
 ```
+
+## Obtain file extension
+
+```
+def getImageName(file_location):
+    filename = file_location.split('/')[-1]  
+    location = file_location.split('/')[0:-1] 
+    filename = filename.split('.')
+    filename[0] += "_resized"
+    filename = '.'.join(filename)
+    new_path = '/'.join(location) + '/' + filename
+    return new_path
+```
+
+Given an input as, `file_location = '/home/dong/Downloads/data_30_new/OnePlus_7T_Jun_26_2020_17_08_30.png'`
+
+Then we can get the output as,
+`filename = 'OnePlus_7T_Jun_26_2020_17_08_30.png'`
+
+`location = ['', 'home', 'dong', 'Downloads', 'data_30_new']`
+
+`new_path = '/home/dong/Downloads/data_30_new/OnePlus_7T_Jun_26_2020_17_08_30_resized.png'`
+
 
 
 # Deep Learning Related
