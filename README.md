@@ -11,6 +11,7 @@ This repository is used to store utility codes which may be useful in the near f
   * [Folder Operation](#folder-operation)
     * [Move up several folders](#move-up-several-folders)
     * [Remove files in a directory with a specific extension](#remove-files-in-a-directory-with-a-specific-extension)
+    * [Move or Copy files from one directory to another with specific extensions](#move-or-copy-files-from-one-directory-to-another-with-specific-extensions)
   * [Basic Operation](#basic-operation)
     * [Screenshots](#screenshots)
 * [Python](#python)
@@ -73,6 +74,39 @@ for item in test:
     if item.endswith(".xml"):
         os.remove(os.path.join(dir_name, item))
 ```
+
+### Move or Copy files from one directory to another with specific extensions
+[Reference](https://stackoverflow.com/questions/45136427/python-moving-files-based-on-extensions)
+```
+import glob
+import shutil
+source = '/home/xxx/randomdir/'
+mydict = {
+    '/home/xxx/Pictures': ['jpg','png','gif'],
+    '/home/xxx/Documents': ['doc','docx','pdf','xls']
+}
+for destination, extensions in mydict.items():
+    for ext in extensions:
+        for file in glob.glob(source + '*.' + ext):
+            print(file)
+            shutil.move(file, destination)
+```
+
+My implementation: move files with xml extension from source directory to the destination directory.  (Windows)
+```
+import glob
+import shutil
+
+source = 'C:\\PycharmProjects\\Icon_Detector_v1\\data_160\\'
+mydict = {
+    r'C:\Users\Windows\Downloads\tensorflow-yolov3-master\data\image_160\Annotations': ['xml']
+}
+for destination, extensions in mydict.items():
+    for ext in extensions:
+        for file in glob.glob(source + '*.' + ext):
+            shutil.copy(file, destination)
+```
+
 
 
 ## Basic Operation
