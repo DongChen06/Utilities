@@ -10,7 +10,7 @@ This repository is used to store utility codes which may be useful in the near f
   * [Package Installation](#package-installation)
   * [Folder Operation](#folder-operation)
     * [Move up several folders](#move-up-several-folders)
-    * [Remove files in a directory with a specific extension](remove-files-in-a-directory-with-a-specific-extension)
+    * [Remove files in a directory with a specific extension](#remove-files-in-a-directory-with-a-specific-extension)
   * [Basic Operation](#basic-operation)
     * [Screenshots](#screenshots)
 * [Python](#python)
