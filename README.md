@@ -10,6 +10,7 @@ This repository is used to store utility codes which may be useful in the near f
   * [Package Installation](#package-installation)
   * [Folder Operation](#folder-operation)
     * [Move up several folders](#move-up-several-folders)
+    * [Remove files in a directory with a specific extension](remove-files-in-a-directory-with-a-specific-extension)
   * [Basic Operation](#basic-operation)
     * [Screenshots](#screenshots)
 * [Python](#python)
@@ -60,6 +61,19 @@ str(Path(full_path).parents[0])  # "path/to"
 str(Path(full_path).parents[1])  # "path"
 str(Path(full_path).parents[2])  # "."
 ```
+
+### Remove files in a directory with a specific extension
+```
+import os
+
+dir_name = "C:\PycharmProjects\Icon_Detector_v1\data_160_yolo1\images/"
+test = os.listdir(dir_name)
+
+for item in test:
+    if item.endswith(".xml"):
+        os.remove(os.path.join(dir_name, item))
+```
+
 
 ## Basic Operation
 
