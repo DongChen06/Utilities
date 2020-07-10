@@ -15,6 +15,7 @@ This repository is used to store utility codes which may be useful in the near f
   * [Basic Operation](#basic-operation)
     * [Screenshots](#screenshots)
     * [Create new sudo user](#create-new-sudo-user)
+    * [Give permission to folder or files](#give-permission-to-folder-or-files)
 * [Python](#python)
   * [Calculating run time](#calculating-run-time)
   * [Obtain file extension](#obtain-file-extension)
@@ -131,6 +132,9 @@ In windows: `shift+Win+S` Scrn to take a screenshot of an area you select.
 - add the user to sudo, `sudo usermod -aG sudo username`
 
 - switch users, `su - username`
+ 
+ ### Give permission to folder or files
+- To give permissions to a folder and every file and folder inside it. `sudo chmod -R a+rwx /path/to/folder`
  
 
 # Python
