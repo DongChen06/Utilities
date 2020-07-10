@@ -14,6 +14,7 @@ This repository is used to store utility codes which may be useful in the near f
     * [Move or Copy files from one directory to another with specific extensions](#move-or-copy-files-from-one-directory-to-another-with-specific-extensions)
   * [Basic Operation](#basic-operation)
     * [Screenshots](#screenshots)
+    * [Create new sudo user](#create-new-sudo-user)
 * [Python](#python)
   * [Calculating run time](#calculating-run-time)
   * [Obtain file extension](#obtain-file-extension)
@@ -120,6 +121,17 @@ for destination, extensions in mydict.items():
 
 In windows: `shift+Win+S` Scrn to take a screenshot of an area you select.
 
+### Create new sudo user
+[Reference](https://linuxize.com/post/how-to-create-a-sudo-user-on-ubuntu/)
+
+- Create the user and enter the password, `sudo adduser username`
+
+- Press ENTER to accept the defaults user information.
+
+- add the user to sudo, `sudo usermod -aG sudo username`
+
+- switch users, `su - username`
+ 
 
 # Python
 
