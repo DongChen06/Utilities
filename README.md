@@ -17,6 +17,7 @@ This repository is used to store utility codes which may be useful in the near f
     * [Create new sudo user](#create-new-sudo-user)
     * [Give permission to folder or files](#give-permission-to-folder-or-files)
 * [Python](#python)
+  * [use pip proxy and disable the proxy](#use-pip-proxy-and-disable-the-proxy)
   * [Calculating run time](#calculating-run-time)
   * [Obtain file extension](#obtain-file-extension)
 * [Deep Learning Related](#deep-learning-related)
@@ -138,6 +139,11 @@ In windows: `shift+Win+S` Scrn to take a screenshot of an area you select.
  
 
 # Python
+## use pip proxy and disable the proxy
+- use the pip proxy: `pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple`
+
+- to disable the pip proxy, just modify/delete the $home/.config/pip/pip.conf.
+
 
 ## Calculating run time
 [Reference](https://stackoverflow.com/questions/5622976/how-do-you-calculate-program-run-time-in-python)
