@@ -1,0 +1,1 @@
+- rgb2gray.py:  convert the rgb image to gray image and scale it to a fixed size.
