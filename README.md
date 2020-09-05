@@ -185,6 +185,7 @@ Then we can get the output as,
 
 ## Anaconda
 - create a new environment In Anaconda: `conda create -n py3.5 python=3.5`
+- remove an environment: `conda remove --name py3.5 --all`
 - create an environment from YAML file: `conda env create --file envname.yml`
 - check the environment info: `conda info --envs`
 - Export an environment to a YAML file that can be read on Windows, macOS, and Linux: `conda env export --name ENVNAME > envname.yml`
