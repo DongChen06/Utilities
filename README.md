@@ -54,6 +54,10 @@ pip install pocketsphinx
 pip install gym[box2d]
 ```
 
+- Unzip package
+`unzip xx.zip`
+
+
 ## Folder Operation
 
 ### Move up several folders
