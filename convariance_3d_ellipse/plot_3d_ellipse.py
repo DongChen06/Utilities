@@ -9,6 +9,14 @@ from math import cos, sin
 import scipy.linalg as linalg
 from scipy.stats import norm
 from os import walk
+from pytransform3d.rotations import *
+from pytransform3d.rotations import plot_basis
+import matplotlib as mpl
+from mpl_toolkits.mplot3d import Axes3D
+import numpy as np
+import matplotlib.pyplot as plt
+from matplotlib.patches import FancyArrowPatch
+from mpl_toolkits.mplot3d import proj3d
 
 
 def covariance_ellipse(P, deviations=1):
@@ -333,15 +341,44 @@ def set_axes_equal(ax):
     ax.set_zlim3d([z_middle - plot_radius, z_middle + plot_radius])
 
 
+def cuboid_data(center, size):
+    # suppose axis direction: x: to left; y: to inside; z: to upper
+    # get the (left, outside, bottom) point
+    o = [a - b / 2 for a, b in zip(center, size)]
+    # get the length, width, and height
+    l, w, h = size
+    x = np.array([[o[0], o[0] + l, o[0] + l, o[0], o[0]],  # x coordinate of points in bottom surface
+                  # x coordinate of points in upper surface
+                  [o[0], o[0] + l, o[0] + l, o[0], o[0]],
+                  # x coordinate of points in outside surface
+                  [o[0], o[0] + l, o[0] + l, o[0], o[0]],
+                  [o[0], o[0] + l, o[0] + l, o[0], o[0]]])  # x coordinate of points in inside surface
+    y = np.array([[o[1], o[1], o[1] + w, o[1] + w, o[1]],  # y coordinate of points in bottom surface
+                  # y coordinate of points in upper surface
+                  [o[1], o[1], o[1] + w, o[1] + w, o[1]],
+                  # y coordinate of points in outside surface
+                  [o[1], o[1], o[1], o[1], o[1]],
+                  [o[1] + w, o[1] + w, o[1] + w, o[1] + w, o[1] + w]])    # y coordinate of points in inside surface
+    z = np.array([[o[2], o[2], o[2], o[2], o[2]],                        # z coordinate of points in bottom surface
+                  # z coordinate of points in upper surface
+                  [o[2] + h, o[2] + h, o[2] + h, o[2] + h, o[2] + h],
+                  # z coordinate of points in outside surface
+                  [o[2], o[2], o[2] + h, o[2] + h, o[2]],
+                  [o[2], o[2], o[2] + h, o[2] + h, o[2]]])                # z coordinate of points in inside surface
+    return x, y, z
+
+
 if __name__ == "__main__":
     plot_single_ellipse = not True
     # True, False
-    plot_camera_3d = True
+    plot_camera_3d = False
     plot_lidar_3d = False
     plot_camera_2d = False
     plot_lidar_2d = False
+    plot_camera_lidar_3d = False
+    plot_new = True
 
-    is_colorful = True
+    is_colorful = False
     colors = []
     indexes = []
 
@@ -408,26 +445,57 @@ if __name__ == "__main__":
             if is_colorful:
                 color = next(ax._get_lines.prop_cycler)['color']
             else:
-                color = 'b'
+                color = 'cornflowerblue'
             colors.append(color)
             indexes.append(index)
-            ax.plot_surface(x, y, z,
+            #  positions of y and z are changed
+            ax.plot_surface(x, z, y,
                             rstride=3, cstride=3, linewidth=0.2, alpha=0.4,
                             shade=True, color=color)
 
         label_xyz = True
         if label_xyz:
             ax.set_xlabel('X/m')
-            ax.set_ylabel('Y/m')
-            ax.set_zlabel('Z/m')
-
+            ax.set_ylabel('Z/m')
+            ax.set_zlabel('Y/m')
+            ax.set_xlim([-4, 4])
+            ax.set_ylim([0, 8])
+            ax.set_zlim([-7, 1])
+            # ax.zaxis.set_ticks(np.arange(-1, 2, 1))
         set_axes_equal(ax)
+
         np.save('colors.npy', colors)
         np.save('indexes.npy', indexes)
         title = None
         if title is not None:
             plt.title(title)
         plt.grid(True)
+
+        # center = [0, 0, 0]
+        # length = 0.5
+        # width = 0.5
+        # height = 0.5
+        # X, Y, Z = cuboid_data(center, (length, width, height))
+        # ax.plot_surface(X, Y, Z, color='b', rstride=1, cstride=1, alpha=0.1)
+
+        # Here we create the arrows:
+        arrow_prop_dict = dict(
+            mutation_scale=10, arrowstyle='->', shrinkA=0, shrinkB=0)
+
+        a = Arrow3D([0, 1], [0, 0], [0, 0], **arrow_prop_dict, color='b')
+        ax.add_artist(a)
+        a = Arrow3D([0, 0], [0, 1], [0, 0], **arrow_prop_dict, color='g')
+        ax.add_artist(a)
+        a = Arrow3D([0, 0], [0, 0], [0, 1], **arrow_prop_dict, color='r')
+        ax.add_artist(a)
+
+        # # Give them a name:
+        # ax.text(0.0, 0.0, -0.1, r'$0$')
+        # ax.text(1.1, 0, 0, r'$x$')
+        # ax.text(0, 1.1, 0, r'$z$')
+        # ax.text(0, 0, 1.1, r'$y$')
+        # ax.invert_xaxis()
+        ax.invert_zaxis()
         plt.show()
 
     elif plot_lidar_3d:
@@ -453,24 +521,211 @@ if __name__ == "__main__":
             if is_colorful:
                 color = colors[indexes.index(index)]
             else:
-                color = 'b'
+                color = 'r'
             mu = np.load(input_dir + index + '{}'.format('_xyz') + '.npy')
             x, y, z, radii = plot_3d_covariance(
                 mu, Cov, alpha=.4, std=1, enlarge_factor=60, limit_xyz=True)
-            ax.plot_surface(x, y, z,
+            #  positions of x and y are changed
+            ax.plot_surface(y, x, z,
                             rstride=3, cstride=3, linewidth=0.2, alpha=0.4,
                             shade=True, color=color)
 
         label_xyz = True
         if label_xyz:
-            ax.set_xlabel('X/m')
-            ax.set_ylabel('Y/m')
+            ax.set_xlabel('Y/m')
+            ax.set_ylabel('X/m')
             ax.set_zlabel('Z/m')
+            ax.set_xlim([-4, 4])
+            ax.set_ylim([0, 7])
+            ax.set_zlim([-1, 7])
 
         set_axes_equal(ax)
         title = None
         if title is not None:
             plt.title(title)
+
+        # center = [0, 0, 0]
+        # length = 0.5
+        # width = 0.5
+        # height = 0.5
+        # X, Y, Z = cuboid_data(center, (length, width, height))
+        # ax.plot_surface(X, Y, Z, color='b', rstride=1, cstride=1, alpha=0.1)
+
+        # Here we create the arrows:
+        arrow_prop_dict = dict(
+            mutation_scale=10, arrowstyle='->', shrinkA=0, shrinkB=0)
+
+        a = Arrow3D([0, 1], [0, 0], [0, 0], **arrow_prop_dict, color='r')
+        ax.add_artist(a)
+        a = Arrow3D([0, 0], [0, 1], [0, 0], **arrow_prop_dict, color='b')
+        ax.add_artist(a)
+        a = Arrow3D([0, 0], [0, 0], [0, 1], **arrow_prop_dict, color='g')
+        ax.add_artist(a)
+
+        # Give them a name:
+        # ax.text(0.0, 0.0, -0.1, r'$0$')
+        # ax.text(1.1, 0, 0, r'$y$')
+        # ax.text(0, 1.1, 0, r'$x$')
+        # ax.text(0, 0, 1.1, r'$z$')
+        ax.invert_xaxis()
+        plt.show()
+
+    elif plot_camera_lidar_3d:
+        input_dir = 'cov_results_camera/'
+        cov_files = []
+
+        input_dir1 = 'cali_cov_results/'
+
+        for (dirpath, dirnames, filenames) in walk(input_dir):
+            for filename in filenames:
+                if filename.endswith('cov.npy'):
+                    cov_files.append(os.path.join(dirpath, filename))
+
+        fig = plt.gcf()
+        ax = fig.add_subplot(111, projection='3d')
+
+        for cov_file in cov_files:
+            Cov = np.load(cov_file)
+            filename = cov_file.split('/')[-1]
+            index = filename.split('_')[0]
+            mu = np.load(input_dir + index + '{}'.format('_xyz') + '.npy')
+
+            Cov1 = np.load(input_dir1 + index + '{}'.format('_cov') + '.npy')
+            mu1 = np.load(input_dir1 + index + '{}'.format('_xyz') + '.npy')
+
+            x, y, z, radii = plot_3d_covariance(
+                mu, Cov, alpha=.2, std=1, enlarge_factor=8, limit_xyz=True)
+            x1, y1, z1, radii = plot_3d_covariance(
+                mu1, Cov1, alpha=.95, std=1, enlarge_factor=30, limit_xyz=True)
+            if is_colorful:
+                color = next(ax._get_lines.prop_cycler)['color']
+            else:
+                color = 'cornflowerblue'
+                color1 = 'r'
+            colors.append(color)
+            indexes.append(index)
+            #  positions of y and z are changed
+            ax.plot_surface(x, z, y,
+                            rstride=3, cstride=3, linewidth=0.2, alpha=0.4,
+                            shade=True, color=color)
+            ax.plot_surface(x1, z1, y1,
+                            rstride=3, cstride=3, linewidth=0.2, alpha=0.6,
+                            shade=True, color=color1)
+
+        label_xyz = True
+        if label_xyz:
+            ax.set_xlabel('X/m')
+            ax.set_ylabel('Z/m')
+            ax.set_zlabel('Y/m')
+            ax.set_xlim([-4, 4])
+            ax.set_ylim([0, 8])
+            ax.set_zlim([-1, 7])
+        set_axes_equal(ax)
+        np.save('colors.npy', colors)
+        np.save('indexes.npy', indexes)
+        title = None
+        if title is not None:
+            plt.title(title)
+        plt.grid(True)
+        arrow_prop_dict = dict(
+            mutation_scale=10, arrowstyle='->', shrinkA=0, shrinkB=0)
+
+        a = Arrow3D([0, 1], [0, 0], [0, 0], **arrow_prop_dict, color='r')
+        ax.add_artist(a)
+        a = Arrow3D([0, 0], [0, 1], [0, 0], **arrow_prop_dict, color='b')
+        ax.add_artist(a)
+        a = Arrow3D([0, 0], [0, 0], [0, 1], **arrow_prop_dict, color='g')
+        ax.add_artist(a)
+
+        # Give them a name:
+        ax.text(0.0, 0.0, -0.1, r'$0$')
+        ax.text(1.1, 0, 0, r'$y$')
+        ax.text(0, 1.1, 0, r'$x$')
+        ax.text(0, 0, 1.1, r'$z$')
+        ax.invert_xaxis()
+        plt.show()
+
+    elif plot_new:
+        input_dir = 'cov_results_camera/'
+        cov_files = []
+
+        input_dir1 = 'cali_cov_results/'
+
+        for (dirpath, dirnames, filenames) in walk(input_dir):
+            for filename in filenames:
+                if filename.endswith('cov.npy'):
+                    cov_files.append(os.path.join(dirpath, filename))
+
+        fig = plt.gcf()
+        ax = fig.add_subplot(111, projection='3d')
+
+        for cov_file in cov_files:
+            Cov = np.load(cov_file)
+            filename = cov_file.split('/')[-1]
+            index = filename.split('_')[0]
+            mu = np.load(input_dir + index + '{}'.format('_xyz') + '.npy')
+
+            Cov1 = np.load(input_dir1 + index + '{}'.format('_cov') + '.npy')
+            mu1 = np.load(input_dir1 + index + '{}'.format('_xyz') + '.npy')
+
+            x, y, z, radii = plot_3d_covariance(
+                mu, Cov, alpha=.2, std=1, enlarge_factor=8, limit_xyz=True)
+            x1, y1, z1, radii = plot_3d_covariance(
+                mu1, Cov1, alpha=.95, std=1, enlarge_factor=60, limit_xyz=True)
+            if is_colorful:
+                color = next(ax._get_lines.prop_cycler)['color']
+            else:
+                color = 'cornflowerblue'
+                color1 = 'r'
+            colors.append(color)
+            indexes.append(index)
+            
+            #  positions of y and z are changed
+            ax.plot_surface(x, z, y,
+                            rstride=3, cstride=3, linewidth=0.2, alpha=0.4,
+                            shade=True, color=color)
+            ax.plot_surface(x1, z1, y1,
+                            rstride=3, cstride=3, linewidth=0.2, alpha=0.6,
+                            shade=True, color=color1)
+
+        label_xyz = True
+        if label_xyz:
+            ax.set_xlabel('X/m')
+            ax.set_ylabel('Z/m')
+            ax.set_zlabel('Y/m')
+            ax.set_xlim([-4, 4])
+            ax.set_ylim([0, 8])
+            ax.set_zlim([-7, 1])
+        set_axes_equal(ax)
+        np.save('colors.npy', colors)
+        np.save('indexes.npy', indexes)
+        title = None
+        if title is not None:
+            plt.title(title)
+        plt.grid(True)
+        arrow_prop_dict = dict(
+            mutation_scale=10, arrowstyle='->', shrinkA=0, shrinkB=0)
+
+        a = Arrow3D([0, 1], [0, 0], [0, 0], **arrow_prop_dict, color='b')
+        ax.add_artist(a)
+        a = Arrow3D([0, 0], [0, 1], [0, 0], **arrow_prop_dict, color='g')
+        ax.add_artist(a)
+        a = Arrow3D([0, 0], [0, 0], [0, 1], **arrow_prop_dict, color='r')
+        ax.add_artist(a)
+
+        # Give them a name:
+        # ax.text(0.0, 0.0, -0.1, r'$0$')
+        # ax.text(1.1, 0, 0, r'$x$')
+        # ax.text(0, 1.1, 0, r'$z$')
+        # ax.text(0, 0, 1.1, r'$y$')
+
+        angle = np.pi / 2
+        p = np.array([0.09870368, 0.42568716, -0.23324492])
+        R = np.matrix([[-0.06576756, -0.05730691, -0.99618801], [0.99761943, -
+                                                                 0.02452605, -0.06445117], [-0.02073906, -0.9980553,   0.05878351]])
+        plot_basis(ax, R, p)
+
+        ax.invert_zaxis()
         plt.show()
 
     elif plot_camera_2d:
