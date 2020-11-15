@@ -1,7 +1,6 @@
 """
 Implementation of Double DQN for gym environments with discrete action space.
 """
-
 import gym, os
 import torch
 import numpy as np
@@ -12,13 +11,7 @@ import collections
 from torch.optim.lr_scheduler import StepLR
 import highway_env
 from utils.monitor import MonitorV2
-
-
-device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
-
-save_path = './trained_models/'
-os.makedirs(save_path, exist_ok=True)
-
+from utils.utils import *
 
 """
 The Q-Network has as input a state s and outputs the state-action values q(s,a_1), ..., q(s,a_n) for all n actions.
@@ -130,7 +123,7 @@ def update_parameters(current_model, target_model):
     target_model.load_state_dict(current_model.state_dict())
 
 
-def train_fn(gamma=0.99, lr=1e-3, min_episodes=20, eps=1, eps_decay=0.995, eps_min=0.01, update_step=10, batch_size=64, update_repeats=50,
+def train_fn(gamma=0.8, lr=1e-3, min_episodes=20, eps=1, eps_decay=0.995, eps_min=0.05, update_step=10, batch_size=32, update_repeats=50,
          num_episodes=2000, seed=42, max_memory_size=15000, lr_gamma=0.9, lr_step=100, measure_step=100,
          measure_repeats=5, hidden_dim=256, env_name='CartPole-v1', horizon=np.inf, render=False, render_step=50):
     """
@@ -212,10 +205,10 @@ def train_fn(gamma=0.99, lr=1e-3, min_episodes=20, eps=1, eps_decay=0.995, eps_m
             print("-----------------")
             print("\n")
             # save the model
-            torch.save(Q_1.state_dict(), os.path.join(save_path, "highway_{}".format(episode) + ".pt"))
-            np.save(os.path.join(save_path, "eval_rewards"), performance)
-            np.save(os.path.join(save_path, "epsiode_rewards"), epsiode_rewards)
-            np.save(os.path.join(save_path, "epoch_length"), epoch_length)
+            torch.save(Q_1.state_dict(), os.path.join(save_path, 'model', "highway_{}".format(episode) + ".pt"))
+            np.save(os.path.join(save_path, 'log', "eval_rewards"), performance)
+            np.save(os.path.join(save_path, 'log', "epsiode_rewards"), epsiode_rewards)
+            np.save(os.path.join(save_path, 'log', "epoch_length"), epoch_length)
 
         epsiode_rewards.append(0)
         if episode >= min_episodes and episode % update_step == 0:
@@ -236,14 +229,22 @@ def test_fn(hidden_dim=256, env_name='CartPole-v1', seed=66, measure_repeats=5):
     reward = []
     Q_1 = QNetwork(action_dim=env.action_space.n, state_dim=25,
                    hidden_dim=hidden_dim).to(device)
-    Q_1.load_state_dict(torch.load(os.path.join(save_path, 'highway' + "_1900.pt")))
+    Q_1.load_state_dict(torch.load(os.path.join(save_path, 'model',  'highway' + "_1900.pt")))
     reward.append(evaluate(Q_1, env, measure_repeats))
     print(reward)
 
 
 if __name__ == '__main__':
+    device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+
+    save_path = './results/DDQN_v0/'
+    os.makedirs(save_path, exist_ok=True)
+    base_dir = '/home/dong/PycharmProjects/MARL_AD/MARL'
+    init_dir(save_path)
+    copy_file(base_dir, save_path + '/data/')
+
     # True False
-    is_training = False
+    is_training = True
     if is_training:
         train_fn()
     else:
