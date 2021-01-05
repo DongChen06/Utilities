@@ -8,6 +8,7 @@ This repository is used to store utility codes which may be useful in the near f
   * [Save and read pkl](#save-and-read-pkl)
 * [Ubuntu](#ubuntu)
   * [Package Installation](#package-installation)
+  * [File Permission](#file-permission)
   * [Folder Operation](#folder-operation)
     * [Move up several folders](#move-up-several-folders)
     * [Remove files in a directory with a specific extension](#remove-files-in-a-directory-with-a-specific-extension)
@@ -57,6 +58,12 @@ pip install gym[box2d]
 - Unzip package
 `unzip xx.zip`
 
+## File Permission
+- give permission to a file: 
+`sudo chmod a+rwx /path/to/file`
+
+- give permission to a folder: 
+`sudo chmod -R a+rwx /path/to/folder`
 
 ## Folder Operation
 
