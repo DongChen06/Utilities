@@ -48,6 +48,9 @@ with open('data.pickle', 'wb') as f:
 ## Package Installation
 - to install the packages in the requirement.txt file: `pip install -r requirements.txt`.
 
+- Install tar.gz 'tar -xzf xx.tar.gz', Then find the install.sh.
+
+
 - Install box2D
 ```
 conda install swig
