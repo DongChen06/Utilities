@@ -17,6 +17,7 @@ This repository is used to store utility codes which may be useful in the near f
     * [Screenshots](#screenshots)
     * [Create new sudo user](#create-new-sudo-user)
     * [Give permission to folder or files](#give-permission-to-folder-or-files)
+   * [Git](#git)
 * [Python](#python)
   * [use pip proxy and disable the proxy](#use-pip-proxy-and-disable-the-proxy)
   * [Calculating run time](#calculating-run-time)
@@ -193,6 +194,10 @@ Then we can get the output as,
 
 `new_path = '/home/dong/Downloads/data_30_new/OnePlus_7T_Jun_26_2020_17_08_30_resized.png'`
 
+
+## Git
+- clone code: `git clone`
+- update the code:`git pull origin master`
 
 
 # Deep Learning Related
