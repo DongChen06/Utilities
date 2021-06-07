@@ -6,6 +6,11 @@ This repository is used to store utility codes which may be useful in the near f
 * [Numpy](#numpy)
   * [Save and read numpy array](#save-and-read-numpy-array)
   * [Save and read pkl](#save-and-read-pkl)
+
+* [Docker](#docker)
+  * [Images](#images)
+  * [Container](#container)
+
 * [Ubuntu](#ubuntu)
   * [Package Installation](#package-installation)
   * [File Permission](#file-permission)
@@ -44,6 +49,22 @@ with open('data.pickle', 'wb') as f:
  with open('data.pickle', 'rb') as f:
      data = pickle.load(f)
  ```
+ 
+
+# Docker
+## Images
+- list all the images:  `docker images`
+- Remove an image: `docker image rm [OPTIONS] IMAGE [IMAGE...]`, can simulatous remove multiple images.
+- Force remove an image: `docker image rm -f IMAGE [IMAGE...]`
+
+
+## Container
+- List containers: `docker ps`
+- Stop a container: `docker stop`
+- Remove a container: `docker rm`
+
+
+
 
 # Ubuntu
 ## Package Installation
