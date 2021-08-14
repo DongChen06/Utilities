@@ -92,6 +92,12 @@ pip install gym[box2d]
 
 ## Folder Operation
 
+## Remove files through a USB 
+- https://unix.stackexchange.com/questions/198148/deleting-files-after-booting-from-a-usb-drive
+- `sudo -s`
+- `chmod a+x filename`
+- `rm -f filename` or `rm -f -r foldername`
+
 ### Move up several folders
 ```
 from pathlib import Path
