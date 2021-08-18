@@ -98,6 +98,22 @@ pip install gym[box2d]
 - `chmod a+x filename`
 - `rm -f filename` or `rm -f -r foldername`
 
+
+## Face the problem, that the computer cannot be opened and shows the space is full.
+- use the USB to access the folders and delete some files using the command shown in above.
+- then the computer can be opened, while the space is full again. Why?
+- delete some files and check all the directories. Find there are two large error_log files in /var/log/cups/.
+- open the error_log files and find some of the files have no permission. 
+`sudo chmod 755 /usr/lib/cups/notifier`
+- find there is no permission to sudo. [Reference](https://askubuntu.com/questions/452860/usr-bin-sudo-must-be-owned-by-uid-0-and-have-the-setuid-bit-set/471503#471503)
+- go the recovery mode and choose root.
+```
+chown -R root:root /usr/bin/sudo
+chmod -R a=rx,u+ws /usr/bin/sudo
+chown -R root:root /usr/lib/sudo/sudoers.so
+chmod -R a=rx,u+ws /usr/lib/sudo/sudoers.so
+```
+
 ### Move up several folders
 ```
 from pathlib import Path
