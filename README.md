@@ -32,6 +32,8 @@ This repository is used to store utility codes which may be useful in the near f
   * [Tensorflow](#tensorflow)
     * [Tensorboard](#tensorboard)
     * [Tensorflow GPU Statement](#tensorflow-gpu-statement)
+* [Others](#others)
+  * [X2go](#x2go)
 
 # Numpy
 ## Save and read numpy array
@@ -268,5 +270,13 @@ os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
 os.environ["CUDA_VISIBLE_DEVICES"] = "0"
 ```
 If we donot want to use GPU, we can set it as -1.
+
+
+# Others
+## X2go
+Solve the resolution problem of X20go: [reference](https://stackoverflow.com/questions/48091637/x2go-resolution-from-windows-client)
+> I had a very similar problem: A Dell laptop with an Nvidia graphics card, having a resolution of the built-in flat panel of 1280x800. I connected this to an external screen with HDMI with a resolution of 1920x1080. However, X2Go seemed to pick up the resolution of the built-in screen instead of the actual screen, making everything seem blurry (interpolating 1280x800 to 1920x1080).
+This is what fixed it for me: Navigate to the C:\Program Files (x86)\X2GoClient\VcXSrv\ directory in Explorer. Select the vcxsrv.exe file and right-click it, choosing Properties from the popup menu. Go to the Compatibility tab, and in the Settings section there, select the option "Override high DPI scaling behavior. Scaling performed by:" and then select "Application" in the combo-box below.
+Restart the X2Go Client to have its X server start with this new setting.
 
 
