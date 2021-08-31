@@ -32,6 +32,8 @@ This repository is used to store utility codes which may be useful in the near f
   * [Tensorflow](#tensorflow)
     * [Tensorboard](#tensorboard)
     * [Tensorflow GPU Statement](#tensorflow-gpu-statement)
+  * [Pytorch](pytorch)
+    * [Reproducing](#reproducing)
 * [Others](#others)
   * [X2go](#x2go)
 
@@ -270,6 +272,45 @@ os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
 os.environ["CUDA_VISIBLE_DEVICES"] = "0"
 ```
 If we donot want to use GPU, we can set it as -1.
+
+
+## Pytorch
+### Reproducing
+```
+import torch, os
+import random
+import numpy as np
+
+# for reproducing
+torch.manual_seed(args.seeds)
+torch.cuda.manual_seed(args.seeds)
+torch.cuda.manual_seed_all(args.seeds) # if you are using multi-GPU.
+torch.backends.cudnn.benchmark = False
+torch.backends.cudnn.deterministic = True
+os.environ['PYTHONHASHSEED'] = str(args.seeds)  # this one is important
+random.seed(args.seeds)
+np.random.seed(args.seeds)
+
+
+def seed_worker(worker_id):
+    worker_seed = torch.initial_seed() % 2**32
+    np.random.seed(worker_seed)
+    random.seed(worker_seed)
+
+
+g = torch.Generator()
+g.manual_seed(args.seeds)
+
+# Create iterators for data loading
+dataloaders = {
+    'train': data.DataLoader(dataset['train'], batch_size=bs, shuffle=True,
+                             num_workers=num_cpu, pin_memory=True, drop_last=True,
+                             worker_init_fn=seed_worker, generator = g),
+    'valid': data.DataLoader(dataset['valid'], batch_size=bs, shuffle=True,
+                             num_workers=num_cpu, pin_memory=True, drop_last=True,
+                             worker_init_fn=seed_worker, generator=g)}
+```
+
 
 
 # Others
