@@ -87,6 +87,9 @@ pip install gym[box2d]
 - Unzip package
 `unzip xx.zip`
 
+## Transfer files from one pc to another
+`rsync -av -e ssh user@old_laptop:/home/user /home`
+
 ## File Permission
 - give permission to a file: 
 `sudo chmod a+rwx /path/to/file`
