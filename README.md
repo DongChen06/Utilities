@@ -323,4 +323,8 @@ Solve the resolution problem of X20go: [reference](https://stackoverflow.com/que
 This is what fixed it for me: Navigate to the C:\Program Files (x86)\X2GoClient\VcXSrv\ directory in Explorer. Select the vcxsrv.exe file and right-click it, choosing Properties from the popup menu. Go to the Compatibility tab, and in the Settings section there, select the option "Override high DPI scaling behavior. Scaling performed by:" and then select "Application" in the combo-box below.
 Restart the X2Go Client to have its X server start with this new setting.
 
+ModuleNotFoundError: No module named '_distutils_hack':
+> https://blog.csdn.net/m0_46552807/article/details/121361693
+> 'pip3 install --upgrade pip setuptools'
+
 
